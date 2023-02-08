@@ -13,21 +13,34 @@
           <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Register your account here
           </h1>
-          <form action="#" class="space-y-4 md:space-y-6">
+          <form action="#" class="space-y-4 md:space-y-6" @submit.prevent="registerUser">
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="email">Your email</label>
               <input id="email"
+                     v-model="email"
                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      name="email"
                      placeholder="name@company.com"
                      required="" type="email">
             </div>
             <div>
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="username">Your
+                username</label>
+              <input id="username"
+                     v-model="username"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     name="username"
+                     placeholder="dwikiokvianp"
+                     required="" type="text">
+            </div>
+            <div>
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                      for="password">Password</label>
               <input id="password"
+                     v-model="password"
                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     name="password" placeholder="••••••••"
+                     name="password"
+                     placeholder="••••••••"
                      required=""
                      type="password">
             </div>
@@ -64,8 +77,35 @@
 </template>
 
 <script>
+import {useUserStore} from "@/stores/userStore";
+import {mapActions} from "pinia";
+import {successNotification} from "@/utility/notification";
+
 export default {
-  name: "Register"
+  name: "Register",
+  data() {
+    return {
+      email: "",
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    ...mapActions(useUserStore, ["register"]),
+    async registerUser() {
+      try {
+        const response = await this.register({
+          email: this.email,
+          name: this.username,
+          password: this.password,
+        });
+        const message = `Welcome ${response.name}!`;
+        successNotification(message);
+      } catch (err) {
+        errorNotification(err.response.data.message)
+      }
+    },
+  },
 }
 </script>
 

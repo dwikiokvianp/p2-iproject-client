@@ -24,12 +24,18 @@
              src="https://www.clipartmax.com/png/middle/446-4464525_clip-art-freeuse-download-modern-latin-d-svg-png-icon-alphabet-o.png">
       </div>
     </div>
+    <Blog/>
   </section>
 </template>
 
 <script>
+import Blog from "@/components/Blog.vue";
+
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    Blog
+  }
 }
 </script>
 
