@@ -44,8 +44,8 @@
               </svg>
             </span>Mixtape chillwave tumeric
       </p>
-      <button
-          class="flex items-center mt-auto text-white bg-black border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 rounded">
+      <button class="flex items-center mt-auto text-white bg-black border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 rounded"
+              @click="userPayment">
         Button
         <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
              stroke-width="2" viewBox="0 0 24 24">
@@ -58,8 +58,14 @@
 </template>
 
 <script>
+import {useUserStore} from "@/stores/userStore";
+import {mapActions} from "pinia";
+
 export default {
-  name: "PopularCardPricing"
+  name: "PopularCardPricing",
+  methods: {
+    ...mapActions(useUserStore, ["userPayment"]),
+  }
 }
 </script>
 

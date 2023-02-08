@@ -20,7 +20,7 @@
                      v-model="email"
                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      name="email"
-                     placeholder="name@company.com"
+                     placeholder="name@gmail.com"
                      required="" type="email">
             </div>
             <div>
@@ -31,6 +31,16 @@
                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      name="username"
                      placeholder="dwikiokvianp"
+                     required="" type="text">
+            </div>
+            <div>
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="job">Your
+                Job</label>
+              <input id="job"
+                     v-model="job"
+                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     name="job"
+                     placeholder="Frontend Developer"
                      required="" type="text">
             </div>
             <div>
@@ -79,7 +89,7 @@
 <script>
 import {useUserStore} from "@/stores/userStore";
 import {mapActions} from "pinia";
-import {successNotification} from "@/utility/notification";
+import {errorNotification, successNotification} from "@/utility/notification";
 
 export default {
   name: "Register",
@@ -88,17 +98,20 @@ export default {
       email: "",
       username: "",
       password: "",
+      job: "",
     };
   },
   methods: {
     ...mapActions(useUserStore, ["register"]),
     async registerUser() {
       try {
-        const response = await this.register({
+        const userData = {
           email: this.email,
           name: this.username,
           password: this.password,
-        });
+          job: this.job,
+        };
+        const response = await this.register(userData)
         const message = `Welcome ${response.name}!`;
         successNotification(message);
       } catch (err) {
