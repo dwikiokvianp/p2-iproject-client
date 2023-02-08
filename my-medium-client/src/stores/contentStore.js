@@ -19,6 +19,9 @@ export const useContentStore = defineStore("content", {
       const { data } = await axiosInstance("/content");
       return data;
     },
-    async register(userData) {},
+    async getDataById(id) {
+      const { data } = await axiosInstance(`/content/${id}`);
+      return data;
+    },
   },
 });

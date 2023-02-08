@@ -1,5 +1,6 @@
 <template>
   <div class="p-12 md:w-1/2 flex flex-col items-start">
+
     <span
         class="inline-block py-1 px-2 rounded bg-gray-400 text-white text-xs font-medium tracking-widest">{{
         data.Topic.name
