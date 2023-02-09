@@ -38,7 +38,11 @@
           <option value="private">Private</option>
           <option value="public">Public</option>
         </select>
-        <button type="submit"> halo submit dong</button>
+        <button
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 w-full mt-4"
+            type="submit">
+          Post Now
+        </button>
       </form>
     </div>
   </div>
@@ -70,7 +74,9 @@ export default {
         topic: this.topic,
         type: this.type
       }
-      this.createContent(contentData)
+
+      await this.createContent(contentData)
+      this.$router.push({name: 'Home'})
     }
   },
   async created() {

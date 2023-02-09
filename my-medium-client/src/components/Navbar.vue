@@ -132,13 +132,13 @@ export default {
   watch: {
     isLogin() {
       this.isPremium()
-      console.log('terjadi perubahan')
     }
   },
   created() {
     if (localStorage.getItem('access_token')) {
       this.isLogin = true;
     }
+    this.isPremium()
   }
 
 }

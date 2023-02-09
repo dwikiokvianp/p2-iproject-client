@@ -5,7 +5,7 @@ import axios from "axios";
 import { errorNotification, successNotification } from "@/utility/notification";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://organic-sack-production.up.railway.app/",
   headers: {
     "Content-Type": "application/json",
   },
