@@ -7,7 +7,7 @@
     <div class="md:flex-grow">
       <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ data.title }}</h2>
       <p class="leading-relaxed">{{ data.description }}</p>
-      <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
+      <a :href="data.url" class="text-indigo-500 inline-flex items-center mt-4">Learn More
         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
              stroke-width="2" viewBox="0 0 24 24">
           <path d="M5 12h14"></path>

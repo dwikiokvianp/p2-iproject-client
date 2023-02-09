@@ -41,6 +41,7 @@ export const useUserStore = defineStore("user", {
         {},
         { headers: { access_token } }
       );
+      this.isUserPremium = "premium";
       return data;
     },
     async userPayment() {
@@ -53,20 +54,19 @@ export const useUserStore = defineStore("user", {
         );
         const token = data.transactionToken;
         const changeStatus = this.userChangeStatusMember;
-        const isPremi = this.isPremium;
         window.snap.pay(token, {
           onSuccess: function (result) {
             changeStatus();
-            this.isUserPremium = "premium";
-            console.log(this.isUserPremium, "ini dari store");
             successNotification("Payment Success");
             successNotification("You are premium user now");
           },
           onError: function (result) {
-            alert("payment failed!");
+            errorNotification("payment failed!");
           },
           onClose: function () {
-            alert("you closed the popup without finishing the payment");
+            errorNotification(
+              "you closed the popup without finishing the payment"
+            );
           },
         });
       } catch (err) {
