@@ -111,8 +111,9 @@ export default {
           password: this.password,
           job: this.job,
         };
-        const response = await this.register(userData)
-        const message = `Welcome ${response.name}!`;
+        await this.register(userData)
+        const message = `Successfully registered!`;
+        this.$router.push("/login");
         successNotification(message);
       } catch (err) {
         errorNotification(err.response.data.message)

@@ -68,7 +68,7 @@
 
 <script>
 import {useUserStore} from "@/stores/userStore";
-import {mapActions} from "pinia";
+import {mapActions, mapWritableState} from "pinia";
 
 import {successNotification, errorNotification} from "@/utility/notification";
 
@@ -80,6 +80,9 @@ export default {
       password: "",
     };
   },
+  computed: {
+    ...mapWritableState(useUserStore, ["isLogin"]),
+  },
   methods: {
     ...mapActions(useUserStore, ["login"]),
     async loginUser() {
@@ -89,6 +92,8 @@ export default {
           password: this.password,
         }
         const access_token = await this.login(userData);
+        this.$router.push("/")
+        this.isLogin = true
         localStorage.setItem("access_token", access_token)
         successNotification("Login successful")
       } catch (err) {

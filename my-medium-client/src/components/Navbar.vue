@@ -29,7 +29,7 @@
             </svg>
             <span class="sr-only">Search icon</span>
           </div>
-          <input id="search-navbar"
+          <input id="s-navbar"
                  class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  placeholder="Search..."
                  type="text">
@@ -68,19 +68,35 @@
                href="#"
                @click.prevent="$router.push('/')">Home</a>
           </li>
-          <li>
+          <li v-if="isUserPremium !== 'premium'">
             <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                href="#"
                @click.prevent="$router.push('/pricing') ">Pricing</a>
           </li>
-          <li>
+          <li v-if="!isLogin">
             <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                href="#" @click.prevent="$router.push('/login')">Login</a>
           </li>
-          <li>
+          <li v-if="!isLogin">
             <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                href="#"
                @click.prevent="$router.push('/register')">Sign Up</a>
+          </li>
+          <li v-if="isLogin">
+            <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+               href="#" @click.prevent="signOut">Sign Out</a>
+          </li>
+          <li v-if="isLogin">
+            <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+               href="#" @click.prevent="$router.push('/post')">Start Writing</a>
+          </li>
+          <li v-if="isLogin && isUserPremium === 'premium'">
+            <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+               href="#" @click.prevent="$router.push('/premium')">Premium Lounge</a>
+          </li>
+          <li v-if="isLogin ">
+            <a class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+               href="#" @click.prevent="$router.push('/userfollow')">User</a>
           </li>
         </ul>
       </div>
@@ -90,9 +106,43 @@
 </template>
 
 <script>
+
+import {successNotification} from "@/utility/notification";
+import {mapActions, mapWritableState} from "pinia";
+import {useUserStore} from "@/stores/userStore";
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    ...mapActions(useUserStore, ["isPremium"]),
+    signOut() {
+      try {
+        localStorage.clear();
+        successNotification('You have been signed out successfully');
+        this.isUserPremium = false;
+        this.isLogin = false;
+      } catch (err) {
+        errorNotification(err.message)
+      }
+    }
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['isLogin', "isUserPremium"])
+  },
+  watch: {
+    isLogin() {
+      this.isPremium()
+      console.log('terjadi perubahan')
+    }
+  },
+  created() {
+    if (localStorage.getItem('access_token')) {
+      this.isLogin = true;
+    }
+  }
+
 }
+
 </script>
 
 <style scoped>

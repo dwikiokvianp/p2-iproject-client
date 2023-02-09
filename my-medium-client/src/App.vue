@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar.vue";
 import Home from "@/views/Home.vue";
 import Pricing from "@/views/Pricing.vue";
 
+import {useUserStore} from "@/stores/userStore";
+import {mapActions} from "pinia";
+
 export default {
   name: "App",
   components: {
@@ -12,6 +15,11 @@ export default {
     Home,
     Pricing
 
+  },
+  methods: {
+    ...mapActions(useUserStore, ["isPremium"]),
+  },
+  created() {
   }
 };
 </script>

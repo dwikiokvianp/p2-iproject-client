@@ -10,7 +10,7 @@
                    stroke-width="2.5" viewBox="0 0 24 24">
                 <path d="M20 6L9 17l-5-5"></path>
               </svg>
-            </span>Vexillologist pitchfork
+            </span> Limited access to other user post
       </p>
       <p class="flex items-center text-gray-600 mb-2">
             <span
@@ -19,7 +19,7 @@
                    stroke-width="2.5" viewBox="0 0 24 24">
                 <path d="M20 6L9 17l-5-5"></path>
               </svg>
-            </span>Tumeric plaid portland
+            </span>Can only see one post at a time
       </p>
       <p class="flex items-center text-gray-600 mb-6">
             <span
@@ -28,7 +28,7 @@
                    stroke-width="2.5" viewBox="0 0 24 24">
                 <path d="M20 6L9 17l-5-5"></path>
               </svg>
-            </span>Mixtape chillwave tumeric
+            </span> Can't see other user's profile
       </p>
       <button
           class="flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">
@@ -39,7 +39,7 @@
           <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </button>
-      <p class="text-xs text-gray-500 mt-3">Literally you probably haven't heard of them jean shorts.</p>
+      <p class="text-xs text-gray-500 mt-3"></p>
     </div>
   </div>
 </template>

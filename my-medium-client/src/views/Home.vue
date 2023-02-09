@@ -8,16 +8,6 @@
         </h1>
         <p class="mb-8 leading-relaxed">We try to bring recreate your reading experience by like interacting with the
           real writer</p>
-        <div class="flex justify-center">
-          <button
-              class="inline-flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded text-lg">
-            Button
-          </button>
-          <button
-              class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-            Button
-          </button>
-        </div>
       </div>
       <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
         <img alt="hero" class="object-cover object-center rounded"
